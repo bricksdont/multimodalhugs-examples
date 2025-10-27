@@ -19,11 +19,7 @@ Then install required software:
 
 ### Single experiment
 
-The one change you definitely need to make is edit the 
-variable `base` at the top of a run script such as `scripts/running/run_basic.sh`.
-
-It is also a good idea
-to use `dry_run="true"` the first time you are running code, which creates all files, executes all
+It is a good idea to use `dry_run="true"` the first time you are running code, which creates all files, executes all
 the code but uses only a fraction of the training data, trains for very few steps only, etc - as a
 general sanity check. If you want to launch a real run after a dry run you will need to manually
 delete folders that the dry run created (e.g. a sub-folder of `models`), otherwise the steps
@@ -47,4 +43,8 @@ The following script will train approximately 50 models to search for good hyper
 
     ./scripts/running/run_hyperparam_search.sh
 
-Currently the models with label smooothing enabled will fail.
+Currently the models with label smoothing enabled will fail.
+
+### Check if training / generation is reproducible
+
+    ./scripts/running/run_test_repeatability.sh

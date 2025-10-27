@@ -1,7 +1,12 @@
 #! /bin/bash
 
-base="/shares/sigma.ebling.cl.uzh/mathmu/multimodalhugs-examples"
+running_scripts=$(dirname "$0")
+base=$running_scripts/../..
+base=$(realpath $base)
 scripts=$base/scripts
+
+# base="/shares/sigma.ebling.cl.uzh/mathmu/multimodalhugs-examples"
+
 
 # set to "false" or "true":
 
