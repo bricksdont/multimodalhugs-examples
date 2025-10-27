@@ -17,10 +17,10 @@ source activate $venvs/huggingface
 
 git clone https://github.com/GerrySant/multimodalhugs.git $tools/multimodalhugs
 
-# pin commit  https://github.com/GerrySant/multimodalhugs/commit/88968685e48db472a9474e7690546059c2977560
+# pin commit  https://github.com/GerrySant/multimodalhugs/commit/8e689e30afd1eee8712cc80070daafe17946d133
 # to avoid unintentionally breaking the code
 
-(cd $tools/multimodalhugs && git checkout "88968685e48db472a9474e7690546059c2977560")
+(cd $tools/multimodalhugs && git checkout "8e689e30afd1eee8712cc80070daafe17946d133")
 
 (cd $tools/multimodalhugs && pip install .)
 
