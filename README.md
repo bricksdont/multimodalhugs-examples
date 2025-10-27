@@ -48,3 +48,5 @@ Currently the models with label smoothing enabled will fail.
 ### Check if training / generation is reproducible
 
     ./scripts/running/run_test_repeatability.sh
+
+This will train three models with identical configurations and seeds, to test if the process is repeatable / reproducible.

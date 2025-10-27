@@ -5,9 +5,6 @@ base=$running_scripts/../..
 base=$(realpath $base)
 scripts=$base/scripts
 
-# base="/shares/sigma.ebling.cl.uzh/mathmu/multimodalhugs-examples"
-
-
 # set to "false" or "true":
 
 dry_run="false"
@@ -18,7 +15,7 @@ model_name="phoenix"
 
 learning_rate="1e-5"
 warmup_steps=500
-label_smoothing_factor="0.0"
+label_smoothing_factor="0.1"
 gradient_accumulation_steps=3
 
 . $scripts/running/run_generic.sh
