@@ -53,9 +53,9 @@ This will train three models with identical configurations and seeds, to test if
 
 **Results**
 
-|           | test BLEU |
-|-----------|-----------|
-| **phoenix_1** | 10.199    |
-| **phoenix_2** | 10.217    |
-| **phoenix_3** | 10.472    |
+|           | test BLEU | stopped training at epoch |
+|-----------|-----------|---------------------------|
+| phoenix_1 | 10.199    | 29.5051                   |
+| phoenix_2 | 10.217    | 22.5627                   |
+| phoenix_3 | 10.472    | 26.0339                   |
 
