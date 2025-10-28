@@ -50,3 +50,12 @@ Currently the models with label smoothing enabled will fail.
     ./scripts/running/run_test_repeatability.sh
 
 This will train three models with identical configurations and seeds, to test if the process is repeatable / reproducible.
+
+**Results**
+
+|           | test BLEU |
+|-----------|-----------|
+| **phoenix_1** | 10.199    |
+| **phoenix_2** | 10.217    |
+| **phoenix_3** | 10.472    |
+
