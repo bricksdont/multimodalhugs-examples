@@ -81,7 +81,11 @@ fp32 instead of fp16:
 
 fp32 and a single data worker:
 
-
+|           | test BLEU | stopped training at epoch |
+|-----------|------|-----------------------|
+| phoenix_1 | 1035 | 3356                  |
+| phoenix_2 | 105  | 3356                      |
+| phoenix_3 | 10108 | 3356                   |
 
 **Investigate if due to weight initialization**
 
