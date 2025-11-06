@@ -35,7 +35,7 @@ training:
   gradient_accumulation_steps: {gradient_accumulation_steps}                   # Number of steps to accumulate gradients before weight updates.
   learning_rate: {learning_rate}                   # Initial learning rate for the optimizer.
   load_best_model_at_end: True                     # Load the best model found during training at the end.
-  dataloader_num_workers: 2                        # Number of subprocesses to use for data loading; higher values speed up data loading but increase memory usage.
+  dataloader_num_workers: {dataloader_num_workers}                        # Number of subprocesses to use for data loading; higher values speed up data loading but increase memory usage.
   dataloader_prefetch_factor: 2                    # Number of batches loaded in advance by each worker; total prefetched batches = num_workers * prefetch_factor.
   metric_name: sacrebleu, chrf                     # Name of the metric to use (any metric supported by evaluate.load()). If you want to use multiple metrics, structure the variable like: metric_name: '<metric_name_1>,<metric_name_2>,...'
   metric_for_best_model: 'sacrebleu'               # Metric used to determine the best model.
@@ -45,7 +45,7 @@ training:
   warmup_steps: {warmup_steps}                     # Number of warmup steps to gradually increase the learning rate.
   save_total_limit: 10                             # Maximum number of checkpoints to retain (older ones are deleted).
   seed: 3435                                       # Random seed for reproducibility.
-  fp16: True                                       # Enable mixed-precision (FP16) training for faster computation.
+  fp16: {fp16}                                       # Enable mixed-precision (FP16) training for faster computation.
   # See the list of allowed arguments in https://huggingface.co/docs/transformers/v4.49.0/en/main_classes/trainer#transformers.Seq2SeqTrainingArguments
 
 data:
@@ -98,7 +98,9 @@ def fill_template(args: argparse.Namespace) -> str:
         gradient_accumulation_steps=args.gradient_accumulation_steps,
         warmup_steps=args.warmup_steps,
         batch_size=args.batch_size,
-        label_smoothing_factor=args.label_smoothing_factor
+        label_smoothing_factor=args.label_smoothing_factor,
+        dataloader_num_workers=args.dataloader_num_workers,
+        fp16=args.fp16,
     )
 
 # Parse command-line arguments
@@ -128,7 +130,8 @@ def parse_arguments():
 
     parser.add_argument("--learning-rate", type=float, help="The initial learning rate for AdamW optimizer (default: 5e-05).",
                         default=5e-05, required=False)
-    parser.add_argument("--gradient-accumulation-steps", type=int, help=" Number of updates steps to accumulate the gradients for, before performing a backward/update pass.",
+    parser.add_argument("--gradient-accumulation-steps", type=int,
+                        help="Number of updates steps to accumulate the gradients for, before performing a backward/update pass.",
                         default=1, required=False)
     parser.add_argument("--warmup-steps", type=int, help="Number of steps used for a linear warmup from 0 to learning_rate. ",
                         default=0, required=False)
@@ -138,6 +141,11 @@ def parse_arguments():
     parser.add_argument("--label-smoothing-factor", type=float,
                         help="The label smoothing factor to use. Zero means no label smoothing.",
                         default=0.0, required=False)
+    parser.add_argument("--dataloader-num-workers", type=int,
+                        help="Number of subprocesses to use for data loading (PyTorch only). 0 means that the data will be loaded in the main process.",
+                        default=2, required=False)
+    parser.add_argument("--fp16", action="store_true", default=False,
+                        help="Whether to use fp16 16-bit (mixed) precision training instead of 32-bit training.", required=False)
 
     parser.add_argument("--dry-run", action="store_true", default=False,
                         help="Train for a small number of steps.", required=False)

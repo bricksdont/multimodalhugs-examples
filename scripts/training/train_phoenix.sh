@@ -9,6 +9,8 @@
 # $warmup_steps
 # $batch_size
 # $label_smoothing_factor
+# $dataloader_num_workers
+# $fp16
 
 base=$1
 dry_run=$2
@@ -18,6 +20,8 @@ gradient_accumulation_steps=$5
 warmup_steps=$6
 batch_size=$7
 label_smoothing_factor=$8
+dataloader_num_workers=$9
+fp16=${10}
 
 data=$base/data
 preprocessed=$data/preprocessed
@@ -85,6 +89,13 @@ else
     use_cpu_arg=""
 fi
 
+if [[ $fp16 == "true" ]]; then
+    fp16_arg="--fp16"
+else
+    fp16_arg=""
+fi
+
+
 python $scripts/training/create_config.py \
     --run-name "phoenix" \
     --config-dir $configs_sub \
@@ -97,7 +108,8 @@ python $scripts/training/create_config.py \
     --warmup-steps $warmup_steps \
     --batch-size $batch_size \
     --label-smoothing-factor $label_smoothing_factor \
-    --reduce-holistic-poses $dry_run_arg
+    --dataloader-num-workers $dataloader_num_workers \
+    --reduce-holistic-poses $dry_run_arg $fp16_arg
 
 # https://github.com/GerrySant/multimodalhugs/issues/50
 

@@ -43,7 +43,9 @@ The following script will train approximately 50 models to search for good hyper
 
     ./scripts/running/run_hyperparam_search.sh
 
-Currently the models with label smoothing enabled will fail.
+To get a summary of the results, run:
+
+    ./scripts/summaries/summarize.sh
 
 ### Check if training / generation is reproducible
 
@@ -58,4 +60,20 @@ This will train three models with identical configurations and seeds, to test if
 | phoenix_1 | 10.199    | 29.5051                   |
 | phoenix_2 | 10.217    | 22.5627                   |
 | phoenix_3 | 10.472    | 26.0339                   |
+
+Using only a single data worker:
+
+|           | test BLEU | stopped training at epoch |
+|-----------|------|---------------------------|
+| phoenix_1 | 10.324  | 23.4305                   |
+| phoenix_2 | 10.244 | 32.1085                   |
+| phoenix_3 | 10.189 | 21.261                   |
+
+fp32 instead of fp16:
+
+|           | test BLEU | stopped training at epoch |
+|-----------|--------|--------------------------|
+| phoenix_1 | 10.35  | 29.5051                  |
+| phoenix_2 | 10.5  | 22.5627                         |
+| phoenix_3 | 10.108  | 27.3356                         |
 

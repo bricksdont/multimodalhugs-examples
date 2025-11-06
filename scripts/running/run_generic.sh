@@ -10,6 +10,8 @@
 : "${warmup_steps:=0}"
 : "${batch_size:=8}"
 : "${label_smoothing_factor:="0.0"}"
+: "${dataloader_num_workers:=2}"
+: "${fp16:="true"}"
 
 ################################
 
@@ -44,7 +46,8 @@ log_vars() {
   done
 }
 
-log_vars base dry_run model_name learning_rate gradient_accumulation_steps warmup_steps batch_size label_smoothing_factor
+log_vars base dry_run model_name learning_rate gradient_accumulation_steps warmup_steps batch_size \
+    label_smoothing_factor dataloader_num_workers fp16
 
 echo "##############################################" | tee -a $logs_sub/MAIN
 
@@ -91,7 +94,8 @@ id_train=$(
     $SLURM_LOG_ARGS \
     $scripts/training/train_phoenix.sh \
     $base $dry_run $model_name \
-    $learning_rate $gradient_accumulation_steps $warmup_steps $batch_size $label_smoothing_factor
+    $learning_rate $gradient_accumulation_steps $warmup_steps $batch_size $label_smoothing_factor \
+    $dataloader_num_workers $fp16
 )
 
 echo "  id_train: $id_train | $logs_sub/slurm-$id_train.out"  | tee -a $logs_sub/MAIN
