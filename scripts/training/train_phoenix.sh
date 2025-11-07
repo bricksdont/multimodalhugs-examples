@@ -11,6 +11,7 @@
 # $label_smoothing_factor
 # $dataloader_num_workers
 # $fp16
+# $seed
 
 base=$1
 dry_run=$2
@@ -22,6 +23,7 @@ batch_size=$7
 label_smoothing_factor=$8
 dataloader_num_workers=$9
 fp16=${10}
+seed=${11}
 
 data=$base/data
 preprocessed=$data/preprocessed
@@ -109,6 +111,7 @@ python $scripts/training/create_config.py \
     --batch-size $batch_size \
     --label-smoothing-factor $label_smoothing_factor \
     --dataloader-num-workers $dataloader_num_workers \
+    --seed $seed \
     --reduce-holistic-poses $dry_run_arg $fp16_arg
 
 # https://github.com/GerrySant/multimodalhugs/issues/50
@@ -122,7 +125,8 @@ export HF_HOME=$data/huggingface
 multimodalhugs-setup \
     --modality "pose2text" \
     --config_path $configs_sub/config_phoenix.yaml \
-    --output_dir $models_sub
+    --output_dir $models_sub \
+    --seed $seed
 
 # training
 
@@ -131,6 +135,7 @@ multimodalhugs-train \
     --config_path $configs_sub/config_phoenix.yaml \
     --setup_path $models_sub/setup \
     --output_dir $models_sub \
+    --seed $seed \
     --report_to none $use_cpu_arg
 
 echo "time taken:"

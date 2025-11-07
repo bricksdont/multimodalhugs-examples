@@ -44,7 +44,7 @@ training:
   max_steps: {max_steps}                           # Maximum number of training steps, e.g. 500000 (overrides num_train_epochs if set).
   warmup_steps: {warmup_steps}                     # Number of warmup steps to gradually increase the learning rate.
   save_total_limit: 10                             # Maximum number of checkpoints to retain (older ones are deleted).
-  seed: 3435                                       # Random seed for reproducibility.
+  seed: {seed}                                       # Random seed for reproducibility.
   fp16: {fp16}                                       # Enable mixed-precision (FP16) training for faster computation.
   # See the list of allowed arguments in https://huggingface.co/docs/transformers/v4.49.0/en/main_classes/trainer#transformers.Seq2SeqTrainingArguments
 
@@ -101,6 +101,7 @@ def fill_template(args: argparse.Namespace) -> str:
         label_smoothing_factor=args.label_smoothing_factor,
         dataloader_num_workers=args.dataloader_num_workers,
         fp16=args.fp16,
+        seed=args.seed,
     )
 
 # Parse command-line arguments
@@ -133,8 +134,11 @@ def parse_arguments():
     parser.add_argument("--gradient-accumulation-steps", type=int,
                         help="Number of updates steps to accumulate the gradients for, before performing a backward/update pass.",
                         default=1, required=False)
-    parser.add_argument("--warmup-steps", type=int, help="Number of steps used for a linear warmup from 0 to learning_rate. ",
+    parser.add_argument("--warmup-steps", type=int, help="Number of steps used for a linear warmup from 0 to learning_rate.",
                         default=0, required=False)
+    parser.add_argument("--seed", type=int,
+                        help="Random seed that will be set at the beginning of training.",
+                        default=42, required=False)
     parser.add_argument("--batch-size", type=int,
                         help="The batch size per GPU/XPU/TPU/MPS/NPU core/CPU for training / evaluation.",
                         default=8, required=False)
