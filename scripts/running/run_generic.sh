@@ -16,7 +16,7 @@
 
 ################################
 
-module load anaconda3
+module load miniforge3
 
 # explicit unloading of GPU modules at this point to use CPU nodes
 

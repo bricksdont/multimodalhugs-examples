@@ -1,6 +1,6 @@
 #! /bin/bash
 
-module load gpu cuda/12.6.2 cudnn/9.5.1.17-12 anaconda3
+module load gpu cuda/12.6.2 cudnn/9.5.1.17-12 miniforge3
 
 environment_scripts=$(dirname "$0")
 scripts=$environment_scripts/..

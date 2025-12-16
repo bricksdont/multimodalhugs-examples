@@ -2,7 +2,7 @@
 
 # (srun --pty -n 1 -c 2 --time=01:00:00 --mem=16G bash)
 
-module load anaconda3
+module load miniforge3
 
 source activate /shares/sigma.ebling.cl.uzh/mathmu/multimodalhugs-examples/venvs/huggingface
 
