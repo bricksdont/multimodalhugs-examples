@@ -20,7 +20,7 @@ module load miniforge3
 
 # explicit unloading of GPU modules at this point to use CPU nodes
 
-module unload gpu cuda/12.6.2 cudnn/9.5.1.17-12
+module unload gpumem32gb cuda/13.0.2 cudnn/9.8.0.87-12
 
 scripts=$base/scripts
 logs=$base/logs
@@ -84,7 +84,7 @@ echo "  id_preprocess: $id_preprocess | $logs_sub/slurm-$id_preprocess.out" | te
 
 # load GPU modules at this point
 
-module load gpu cuda/12.6.2 cudnn/9.5.1.17-12
+module load gpumem32gb cuda/13.0.2 cudnn/9.8.0.87-12
 
 # HF train (depends on preprocess)
 
