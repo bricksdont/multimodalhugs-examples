@@ -35,3 +35,17 @@ pip install tf-keras
 # bleurt not supported out of the box with evaluate
 
 pip install git+https://github.com/google-research/bleurt.git
+
+# openGL is no longer available on the cluster
+
+OPENCV_VERSION=$(python - <<'EOF'
+import importlib.metadata as m
+try:
+    print(m.version("opencv-python"))
+except m.PackageNotFoundError:
+    print(m.version("opencv-python-headless"))
+EOF
+)
+
+pip uninstall -y opencv-python opencv-python-headless
+pip install "opencv-python-headless==${OPENCV_VERSION}"
