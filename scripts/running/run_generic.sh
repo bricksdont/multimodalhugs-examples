@@ -57,9 +57,9 @@ echo "##############################################" | tee -a $logs_sub/MAIN
 DRY_RUN_SLURM_ARGS="--cpus-per-task=2 --time=02:00:00 --mem=16G"
 
 SLURM_ARGS_GENERIC="--cpus-per-task=8 --time=24:00:00 --mem=16G"
-SLURM_ARGS_TRAIN="--time=36:00:00 --gres=gpu:V100:1 --constraint=GPUMEM32GB --cpus-per-task 8 --mem 16g"
-SLURM_ARGS_TRANSLATE="--time=12:00:00 --gres=gpu:V100:1 --constraint=GPUMEM32GB --cpus-per-task 8 --mem 16g"
-SLURM_ARGS_EVALUATE="--time=01:00:00 --gres=gpu:V100:1 --constraint=GPUMEM32GB --cpus-per-task 8 --mem 16g"
+SLURM_ARGS_TRAIN="--time=36:00:00 --gpus=H100:1 --cpus-per-task 8 --mem 16g"
+SLURM_ARGS_TRANSLATE="--time=12:00:00 --gpus=H100:1 --cpus-per-task 8 --mem 16g"
+SLURM_ARGS_EVALUATE="--time=01:00:00 --gpus=H100:1 --cpus-per-task 8 --mem 16g"
 
 # if dry run, then all args use generic instances
 
