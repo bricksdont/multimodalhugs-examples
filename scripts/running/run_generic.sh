@@ -13,6 +13,7 @@
 : "${dataloader_num_workers:=2}"
 : "${fp16:="true"}"
 : "${seed:=42}"
+: "${gpu_type:="v100"}"
 
 ################################
 
@@ -48,7 +49,7 @@ log_vars() {
 }
 
 log_vars base dry_run model_name learning_rate gradient_accumulation_steps warmup_steps batch_size \
-    label_smoothing_factor dataloader_num_workers fp16 seed
+    label_smoothing_factor dataloader_num_workers fp16 seed gpu_type
 
 echo "##############################################" | tee -a $logs_sub/MAIN
 
@@ -56,10 +57,18 @@ echo "##############################################" | tee -a $logs_sub/MAIN
 
 DRY_RUN_SLURM_ARGS="--cpus-per-task=2 --time=02:00:00 --mem=16G"
 
+if [[ $gpu_type == "v100" ]]; then
+  gpu_parameters="--gpus=V100:1 --partition lowprio"
+elif [[ $gpu_type == "h100" ]]; then
+  gpu_parameters="--gpus=H100:1"
+else
+  gpu_parameters="--gpus=1"
+fi
+
 SLURM_ARGS_GENERIC="--cpus-per-task=8 --time=24:00:00 --mem=16G"
-SLURM_ARGS_TRAIN="--time=36:00:00 --gpus=H100:1 --cpus-per-task 8 --mem 16g"
-SLURM_ARGS_TRANSLATE="--time=12:00:00 --gpus=H100:1 --cpus-per-task 8 --mem 16g"
-SLURM_ARGS_EVALUATE="--time=01:00:00 --gpus=H100:1 --cpus-per-task 8 --mem 16g"
+SLURM_ARGS_TRAIN="--time=24:00:00 $gpu_parameters --cpus-per-task 8 --mem 16g"
+SLURM_ARGS_TRANSLATE="--time=12:00:00 $gpu_parameters --cpus-per-task 8 --mem 16g"
+SLURM_ARGS_EVALUATE="--time=01:00:00 $gpu_parameters --cpus-per-task 8 --mem 16g"
 
 # if dry run, then all args use generic instances
 
