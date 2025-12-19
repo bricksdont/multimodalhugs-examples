@@ -1,9 +1,9 @@
-# multimodalhugs-examples
+# multimodalhugs-pipelines
 
 Download the code:
 
-    git clone https://github.com/bricksdont/multimodalhugs-examples
-    cd multimodalhugs-examples
+    git clone https://github.com/bricksdont/multimodalhugs-pipelines
+    cd multimodalhugs-pipelines
 
 ## Basic setup
 
