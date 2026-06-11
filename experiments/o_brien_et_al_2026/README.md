@@ -84,6 +84,13 @@ These scores are a reproduction run by the original authors and may differ sligh
 | `smplest_x` | 534 | 9.894 | 0.333 |
 | `smplest_x` | 42 | 10.058 | 0.335 |
 
+## Analysis
+
+The [`analysis/`](analysis/) directory contains the scripts used to produce the analysis tables and figures in the paper:
+
+- [`missing_hand_analysis.py`](analysis/missing_hand_analysis.py) — sweeps missing-hand percentage across pose estimators at varying confidence and missing-ratio thresholds.
+- [`motion_jitter_analysis.py`](analysis/motion_jitter_analysis.py) — computes motion energy and jitter (acceleration, jerk) per sequence and plots their distributions across estimators.
+
 ## Citation
 
 ```bibtex
